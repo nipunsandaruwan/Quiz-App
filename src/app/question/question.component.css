@@ -13,6 +13,10 @@ li .card:hover{
     border: 1px solid blue;
 }
 
+/* li .card:active{
+    border:solid blue;
+} */
+
 ol{
     padding: 0;
 }

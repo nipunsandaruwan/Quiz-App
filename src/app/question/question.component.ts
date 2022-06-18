@@ -1,5 +1,7 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { QuestionService } from '../service/question.service'; '../service/questionService'
+import { TitleStrategy } from '@angular/router';
+import { QuestionService } from '../service/question.service';
 
 @Component({
   selector: 'app-question',
@@ -11,6 +13,7 @@ export class QuestionComponent implements OnInit {
   public name:string='';
   public questionList:any = [];
   public currentQuestion:number=0; 
+  public points:number=0;
 
   constructor(private questionService : QuestionService) { 
   }
@@ -23,7 +26,25 @@ export class QuestionComponent implements OnInit {
   getAllQuestions(){
     this.questionService.getQuestionJson()
     .subscribe(res=>{
-        this.questionList= res.question
+      console.log(res.questions);
+      this.questionList= res.questions;
     })
+  }
+
+  nextQuestion(){
+    this.currentQuestion++;
+  }
+
+  answer(curresntQue:number,option:any){
+    if(option.correct){
+      this.points+=10;
+    }
+    else{
+      this.points-=10;
+    }
+  }
+
+  previousQuestion(){
+    this.currentQuestion--;
   }
 }
